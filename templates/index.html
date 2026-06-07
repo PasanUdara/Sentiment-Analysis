@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Sentiment Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <span>🎥</span>
+            Movie Sentiment Studio
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <div class="badge">AI-powered movie review scoring</div>
+                <h1>Turn movie opinions into instant sentiment insights.</h1>
+                <p>
+                    Paste any movie review and get a fast, polished positive/negative prediction powered by your trained sentiment model.
+                    Designed for a sleek movie web experience with modern UI and feedback card styles.
+                </p>
+            </div>
+
+            <div class="hero-card">
+                <h2 class="card-title">Movie Review Sentiment</h2>
+                <form action="/predict" method="POST">
+                    <textarea id="review" name="review" placeholder="Write your movie review here...">{{ review | default('') }}</textarea>
+                    <button type="submit">Analyze Review</button>
+                </form>
+
+                {% if error %}
+                <div class="alert">{{ error }}</div>
+                {% endif %}
+
+                {% if prediction %}
+                <div class="status-card">
+                    <h3>Prediction Result</h3>
+                    <p><strong>Sentiment:</strong> <span class="prediction">{{ prediction }}</span></p>
+                    {% if label %}
+                    <p><strong>Detected label:</strong> {{ label }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="features">
+            <article class="feature-card">
+                <h4>Fast response</h4>
+                <p>Send any review and get the sentiment result instantly using your pre-trained model pipeline.</p>
+            </article>
+            <article class="feature-card">
+                <h4>Movie-first design</h4>
+                <p>A cinematic, modern interface tailored for movie fans and review-based apps.</p>
+            </article>
+            <article class="feature-card">
+                <h4>Easy integration</h4>
+                <p>This Flask app is ready to extend with more movie data, review history, or sentiment analytics.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        Built with Flask • Sentiment driven by your trained review model
+    </footer>
+</body>
+
+</html>
